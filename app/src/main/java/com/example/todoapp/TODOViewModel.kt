@@ -1,11 +1,13 @@
 package com.example.todoapp
 
+import android.content.Context
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.todoapp.notification.scheduleTaskReminder
 import com.example.todoapp.tasksDb.model.Category
 import com.example.todoapp.tasksDb.model.TaskEntity
 import com.example.todoapp.tasksDb.repository.TaskRepository
@@ -51,7 +53,7 @@ class TODOViewModel @Inject constructor(
         selectedCategory = newCategory
     }
 
-    fun addTask(){
+    fun addTask(context: Context){
         val time = selectedDateTime?.let {
             SimpleDateFormat("HH:mm", Locale.getDefault()).format(Date(it))
         } ?: SimpleDateFormat("HH:mm", Locale.getDefault()).format(Date())
@@ -66,6 +68,7 @@ class TODOViewModel @Inject constructor(
         viewModelScope.launch {
             repository.addTask(task)
         }
+        scheduleTaskReminder(context, task)
     }
 
     //for TasksScreen

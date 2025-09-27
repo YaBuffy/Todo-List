@@ -54,7 +54,7 @@ fun TaskUncompleted(
                     Icon(
                         imageVector = Icons.Filled.Delete,
                         contentDescription = "category",
-                        tint = MaterialTheme.colorScheme.onSurfaceVariant)
+                        tint = MaterialTheme.colorScheme.onSurface)
                 }
                 Checkbox(
                     checked = task.isDone,
